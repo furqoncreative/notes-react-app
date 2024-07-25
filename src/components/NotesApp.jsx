@@ -3,10 +3,10 @@ import NotesAppBody from "./NotesAppBody.jsx";
 
 function NotesApp() {
     return (
-        <>
+        <div className="notes-app">
             <NotesAppHeader/>
             <NotesAppBody/>
-        </>
+        </div>
     )
 }
 
