@@ -1,7 +1,7 @@
 import {Route, Routes} from "react-router-dom";
 import HomePage from "../pages/HomePage.jsx";
 
-function NotesAppBody() {
+function NotesAppMain() {
     return (
         <main>
             <Routes>
@@ -11,4 +11,4 @@ function NotesAppBody() {
     )
 }
 
-export default NotesAppBody;
+export default NotesAppMain;
