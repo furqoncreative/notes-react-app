@@ -53,13 +53,14 @@ button:focus {
 }
 
 header.header-container {
-    width: 100%;
-    padding-inline: 80px;
+    margin: auto;
+    width: 60%;
+    padding-inline: 20px;
     padding-block: 16px;
     background-color: var(--teal);
 
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 
     .header-title {
@@ -75,13 +76,12 @@ main {
 
     display: flex;
     gap: 20px;
-    padding-inline: 80px;
     padding-block: 16px;
     flex-direction: column;
     align-items: center;
 
     section.input-note-section {
-        width: 40%;
+        width: 60%;
         padding: 20px;
         align-content: center;
         border: 3px solid var(--green);
