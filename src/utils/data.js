@@ -61,8 +61,12 @@ function addNote(note) {
   notes.push(note);
 }
 
+function findNote(id) {
+  return notes.find((note) => note.id === id);
+}
+
 function deleteNote(id) {
   notes = notes.filter((note) => note.id !== id);
 }
 
-export { getNotes, addNote, deleteNote, showFormattedDate };
+export { getNotes, addNote, deleteNote, findNote, showFormattedDate };

@@ -1,6 +1,6 @@
 import NoteItem from "./NoteItem.jsx";
 
-function NotesList({notes, onDelete, onArchive}) {
+function NotesList({notes, onDelete, onArchive,showDetail}) {
     const activeNotes = notes.filter((note) => note.archived === false)
     const archivedNotes = notes.filter((note) => note.archived === true)
 
@@ -21,6 +21,7 @@ function NotesList({notes, onDelete, onArchive}) {
                                 isArchived={note.archived}
                                 onDelete={onDelete}
                                 onArchive={onArchive}
+                                showDetail={showDetail}
                             />
                         ))
                     }
@@ -41,6 +42,7 @@ function NotesList({notes, onDelete, onArchive}) {
                                 isArchived={note.archived}
                                 onDelete={onDelete}
                                 onArchive={onArchive}
+                                showDetail={showDetail}
                             />
                         ))
                     }

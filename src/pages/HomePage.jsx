@@ -2,9 +2,10 @@ import React from "react";
 import SearchBar from "../components/SearchBar.jsx";
 import NotesList from "../components/NotesList.jsx";
 import {deleteNote, getNotes} from "../utils/data.js";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 function HomePageWrapper() {
+    const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const keyword = searchParams.get('keyword');
 
@@ -12,7 +13,11 @@ function HomePageWrapper() {
         setSearchParams({keyword});
     }
 
-    return <HomePage defaultKeyword={keyword} keywordChange={changeSearchParams}/>;
+    function showDetail(id) {
+        navigate(`/notes/${id}`);
+    }
+
+    return <HomePage defaultKeyword={keyword} keywordChange={changeSearchParams} showDetail={showDetail}/>;
 }
 
 class HomePage extends React.Component {
@@ -27,6 +32,7 @@ class HomePage extends React.Component {
         this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this);
         this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this);
         this.onKeywordChangeHandler = this.onKeywordChangeHandler.bind(this);
+        this.onShowDetailHandler = this.onShowDetailHandler.bind(this);
     }
 
     onDeleteNoteHandler(id) {
@@ -58,6 +64,10 @@ class HomePage extends React.Component {
         this.props.keywordChange(keyword);
     }
 
+    onShowDetailHandler(id) {
+        this.props.showDetail(id);
+    }
+
     render() {
         const notes = this.state.notes.filter((note) => {
             return note.title.toLowerCase().includes(
@@ -68,7 +78,8 @@ class HomePage extends React.Component {
         return (
             <section className="notes-section">
                 <SearchBar keyword={this.state.keyword} keywordChange={this.onKeywordChangeHandler}/>
-                <NotesList notes={notes} onDelete={this.onDeleteNoteHandler} onArchive={this.onArchiveNoteHandler}/>
+                <NotesList notes={notes} onDelete={this.onDeleteNoteHandler} onArchive={this.onArchiveNoteHandler}
+                           showDetail={this.onShowDetailHandler}/>
             </section>
         )
     }
