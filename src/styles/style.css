@@ -68,6 +68,24 @@ header.header-container {
         color: white;
         text-decoration: none;
     }
+
+    nav.navigation {
+        ul {
+            display: flex;
+            gap: 20px;
+
+            li {
+                list-style: none;
+
+                a.nav-item {
+                    text-decoration: none;
+                    font-size: 32px;
+                    color: white;
+                }
+            }
+        }
+
+    }
 }
 
 main {
