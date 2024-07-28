@@ -16,7 +16,7 @@ function NoteItemAction({id, onDelete, onArchive, isArchived, showDetail}) {
 }
 
 NoteItemAction.propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     onDelete: PropTypes.func.isRequired,
     onArchive: PropTypes.func.isRequired,
     isArchived: PropTypes.bool.isRequired,

@@ -13,7 +13,7 @@ function NoteItem({id, title, body, isArchived, createdAt, onDelete, onArchive, 
 }
 
 NoteItem.propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
     isArchived: PropTypes.bool.isRequired,
