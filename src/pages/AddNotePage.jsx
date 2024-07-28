@@ -1,36 +1,25 @@
 import NoteInput from "../components/NoteInput.jsx";
-import React from "react";
+import {useNavigate} from "react-router-dom";
+import {addNote} from "../utils/data.js";
 
-class AddNotePage extends React.Component{
-    constructor(props) {
-        super(props);
+function AddNotePage() {
+    const navigate = useNavigate();
 
-
-        this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
+    function onAddNoteHandler({title, body}) {
+        const newNote = {
+            id: +new Date(),
+            title,
+            body,
+            createdAt: new Date().toISOString(),
+            archived: false,
+        };
+        addNote(newNote)
+        navigate('/');
     }
 
-    onAddNoteHandler({title, body}) {
-        this.setState((prevState) => {
-            const newNote = {
-                id: +new Date(),
-                title,
-                body,
-                createdAt: new Date().toISOString(),
-                archived: false,
-            };
-            const updatedNotes = [...prevState.notes, newNote];
-            return {
-                notes: updatedNotes,
-                allNotes: updatedNotes,
-            };
-        });
-    }
-
-    render() {
-        return (
-            <NoteInput addNote={this.onAddNoteHandler}/>
-        )
-    }
+    return (
+        <NoteInput addNote={onAddNoteHandler}/>
+    )
 }
 
 export default AddNotePage;
