@@ -1,6 +1,7 @@
 import NoteItem from "./NoteItem.jsx";
+import PropTypes from "prop-types";
 
-function NotesList({notes, onDelete, onArchive,showDetail}) {
+function NotesList({notes, onDelete, onArchive, showDetail}) {
     const activeNotes = notes.filter((note) => note.archived === false)
     const archivedNotes = notes.filter((note) => note.archived === true)
 
@@ -51,5 +52,12 @@ function NotesList({notes, onDelete, onArchive,showDetail}) {
         </div>
     )
 }
+
+NotesList.propTypes = {
+    notes: PropTypes.array.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onArchive: PropTypes.func.isRequired,
+    showDetail: PropTypes.func.isRequired,
+};
 
 export default NotesList;

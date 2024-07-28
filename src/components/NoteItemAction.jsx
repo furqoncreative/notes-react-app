@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 function NoteItemAction({id, onDelete, onArchive, isArchived, showDetail}) {
     return (
         <div className="action">
@@ -12,5 +14,13 @@ function NoteItemAction({id, onDelete, onArchive, isArchived, showDetail}) {
         </div>
     );
 }
+
+NoteItemAction.propTypes = {
+    id: PropTypes.string.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onArchive: PropTypes.func.isRequired,
+    isArchived: PropTypes.bool.isRequired,
+    showDetail: PropTypes.func.isRequired,
+};
 
 export default NoteItemAction;

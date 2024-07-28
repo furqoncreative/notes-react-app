@@ -3,6 +3,7 @@ import SearchBar from "../components/SearchBar.jsx";
 import NotesList from "../components/NotesList.jsx";
 import {deleteNote, getNotes} from "../utils/data.js";
 import {useNavigate, useSearchParams} from "react-router-dom";
+import PropTypes from "prop-types";
 
 function HomePageWrapper() {
     const navigate = useNavigate();
@@ -84,5 +85,11 @@ class HomePage extends React.Component {
         )
     }
 }
+
+HomePage.propTypes = {
+    defaultKeyword: PropTypes.string,
+    keywordChange: PropTypes.func.isRequired,
+    showDetail: PropTypes.func.isRequired,
+};
 
 export default HomePageWrapper;
