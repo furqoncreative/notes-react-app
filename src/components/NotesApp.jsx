@@ -1,13 +1,13 @@
 import NotesAppHeader from "./NotesAppHeader.jsx";
-import NotesAppBody from "./NotesAppBody.jsx";
+import NotesAppMain from "./NotesAppMain.jsx";
 
 function NotesApp() {
-    return (
-        <>
-            <NotesAppHeader/>
-            <NotesAppBody/>
-        </>
-    )
+  return (
+    <div className="notes-app">
+      <NotesAppHeader />
+      <NotesAppMain />
+    </div>
+  );
 }
 
 export default NotesApp;
