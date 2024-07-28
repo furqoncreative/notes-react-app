@@ -1,4 +1,4 @@
-const getInitialData = () => ([
+let notes = ([
   {
     id: 1,
     title: "Babel",
@@ -53,4 +53,16 @@ const showFormattedDate = (date) => {
   return new Date(date).toLocaleDateString("id-ID", options)
 }
 
-export { getInitialData, showFormattedDate };
+function getNotes() {
+  return notes;
+}
+
+function addNote(note) {
+  notes.push(note);
+}
+
+function deleteNote(id) {
+  notes = notes.filter((note) => note.id !== id);
+}
+
+export { getNotes, addNote, deleteNote, showFormattedDate };

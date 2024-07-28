@@ -1,4 +1,4 @@
-import {showFormattedDate} from "../utils/index.js";
+import {showFormattedDate} from "../utils/data.js";
 
 function NoteItemBody({title, createdAt, body}) {
     return (

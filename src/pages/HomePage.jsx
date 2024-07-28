@@ -1,24 +1,42 @@
 import React from "react";
-import NotesSearch from "../components/NotesSearch.jsx";
+import SearchBar from "../components/SearchBar.jsx";
 import NotesList from "../components/NotesList.jsx";
-import {getInitialData} from "../utils/index.js";
+import {deleteNote, getNotes} from "../utils/data.js";
+import {useSearchParams} from "react-router-dom";
+
+function HomePageWrapper() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const keyword = searchParams.get('keyword');
+
+    function changeSearchParams(keyword) {
+        setSearchParams({keyword});
+    }
+
+    return <HomePage defaultKeyword={keyword} keywordChange={changeSearchParams}/>;
+}
 
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            notes: getInitialData(),
-            originalNotes: getInitialData(),
+            notes: getNotes(),
+            keyword: props.defaultKeyword || '',
         };
 
         this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this);
         this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this);
-        this.onSearchNotesHandler = this.onSearchNotesHandler.bind(this);
+        this.onKeywordChangeHandler = this.onKeywordChangeHandler.bind(this);
     }
 
     onDeleteNoteHandler(id) {
-        const notes = this.state.notes.filter(note => note.id !== id);
-        this.setState({notes, originalNotes: notes});
+        deleteNote(id)
+
+        this.setState(() => {
+            return {
+                notes: getNotes()
+            }
+        });
     }
 
     onArchiveNoteHandler(id) {
@@ -26,34 +44,34 @@ class HomePage extends React.Component {
             const notes = prevState.notes.map(note =>
                 note.id === id ? {...note, archived: !note.archived} : note
             );
-            return {notes, originalNotes: notes};
+            return {notes};
         });
     }
 
-    onSearchNotesHandler({keyword}) {
-        this.setState((prevState) => {
-            if (keyword.trim() === '') {
-                return {notes: prevState.originalNotes};
-            } else {
-                const notes = prevState.originalNotes.filter((note) =>
-                    note.title.toLowerCase().includes(keyword.toLowerCase())
-                );
-                return {notes};
+    onKeywordChangeHandler(keyword) {
+        this.setState(() => {
+            return {
+                keyword,
             }
         });
+
+        this.props.keywordChange(keyword);
     }
 
     render() {
+        const notes = this.state.notes.filter((note) => {
+            return note.title.toLowerCase().includes(
+                this.state.keyword.toLowerCase()
+            );
+        });
+
         return (
-            <>
-                <section className="notes-section">
-                    <NotesSearch searchNotes={this.onSearchNotesHandler}/>
-                    <NotesList notes={this.state.notes} onDelete={this.onDeleteNoteHandler}
-                               onArchive={this.onArchiveNoteHandler}/>
-                </section>
-            </>
+            <section className="notes-section">
+                <SearchBar keyword={this.state.keyword} keywordChange={this.onKeywordChangeHandler}/>
+                <NotesList notes={notes} onDelete={this.onDeleteNoteHandler} onArchive={this.onArchiveNoteHandler}/>
+            </section>
         )
     }
 }
 
-export default HomePage;
+export default HomePageWrapper;
