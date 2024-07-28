@@ -62,7 +62,11 @@ function addNote(note) {
 }
 
 function findNote(id) {
-    return notes.find((note) => note.id === id);
+    try {
+        return notes.find((note) => note.id === id);
+    } catch (error) {
+        return null;
+    }
 }
 
 function deleteNote(id) {
