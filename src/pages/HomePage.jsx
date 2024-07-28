@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "../components/SearchBar.jsx";
 import NotesList from "../components/NotesList.jsx";
-import {deleteNote, getNotes} from "../utils/data.js";
+import {archiveNote, deleteNote, getNotes} from "../utils/data.js";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -47,11 +47,12 @@ class HomePage extends React.Component {
     }
 
     onArchiveNoteHandler(id) {
-        this.setState((prevState) => {
-            const notes = prevState.notes.map(note =>
-                note.id === id ? {...note, archived: !note.archived} : note
-            );
-            return {notes};
+        archiveNote(id)
+
+        this.setState(() => {
+            return {
+                notes: getNotes()
+            }
         });
     }
 

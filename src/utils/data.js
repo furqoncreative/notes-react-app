@@ -73,4 +73,10 @@ function deleteNote(id) {
     notes = notes.filter((note) => note.id !== id);
 }
 
-export {getNotes, addNote, deleteNote, findNote, showFormattedDate};
+function archiveNote(id) {
+    notes = notes.map(note =>
+        note.id === id ? {...note, archived: !note.archived} : note
+    );
+}
+
+export {getNotes, addNote, deleteNote, findNote, archiveNote, showFormattedDate};
