@@ -58,6 +58,17 @@ async function register({ name, email, password }) {
   return { error: false };
 }
 
+async function getUserLogged() {
+  const response = await fetchWithToken(`${BASE_URL}/users/me`);
+  const responseJson = await response.json();
+
+  if (responseJson.status !== "success") {
+    return { error: true, data: null };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
 /* Notes */
 
 async function addNotes({ title, body }) {
@@ -166,6 +177,7 @@ export {
   addNotes,
   getNotes,
   getArchivedNotes,
+  getUserLogged,
   getNote,
   deleteNote,
   archiveNote,

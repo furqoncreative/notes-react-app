@@ -3,8 +3,20 @@ import AddNotePage from "../pages/AddNotePage.jsx";
 import HomePage from "../pages/HomePage.jsx";
 import DetailPage from "../pages/DetailPage.jsx";
 import NotFound404Page from "../pages/NotFound404Page.jsx";
+import PropTypes from "prop-types";
 
-function NotesAppMain() {
+function NotesAppMain({ authedUser }) {
+  if (authedUser == null) {
+    return (
+      <main>
+        <Routes>
+          <Route path="/*" element={<p>Halaman Login</p>} />
+          <Route path="/register" element={<p>Halaman Register</p>} />
+        </Routes>
+      </main>
+    );
+  }
+
   return (
     <main>
       <Routes>
@@ -16,5 +28,9 @@ function NotesAppMain() {
     </main>
   );
 }
+
+NotesAppMain.propTypes = {
+  authedUser: PropTypes.object,
+};
 
 export default NotesAppMain;
