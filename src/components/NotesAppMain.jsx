@@ -4,13 +4,17 @@ import HomePage from "../pages/HomePage.jsx";
 import DetailPage from "../pages/DetailPage.jsx";
 import NotFound404Page from "../pages/NotFound404Page.jsx";
 import PropTypes from "prop-types";
+import LoginPage from "../pages/LoginPage.jsx";
 
-function NotesAppMain({ authedUser }) {
+function NotesAppMain({ authedUser, onLoginSuccess }) {
   if (authedUser == null) {
     return (
       <main>
         <Routes>
-          <Route path="/*" element={<p>Halaman Login</p>} />
+          <Route
+            path="/*"
+            element={<LoginPage loginSuccess={onLoginSuccess} />}
+          />
           <Route path="/register" element={<p>Halaman Register</p>} />
         </Routes>
       </main>
@@ -31,6 +35,7 @@ function NotesAppMain({ authedUser }) {
 
 NotesAppMain.propTypes = {
   authedUser: PropTypes.object,
+  onLoginSuccess: PropTypes.func.isRequired,
 };
 
 export default NotesAppMain;
