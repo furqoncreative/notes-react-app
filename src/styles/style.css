@@ -49,7 +49,6 @@ button:hover {
 
 button:focus {
     outline: none;
-    box-shadow: 0 0 0 2px #007bff;
 }
 
 header.header-container {
@@ -72,9 +71,12 @@ header.header-container {
     nav.navigation {
         ul {
             display: flex;
+            align-items: center;
             gap: 20px;
 
             li {
+                display: flex;
+                align-items: center;
                 list-style: none;
 
                 .nav-item {
@@ -83,10 +85,15 @@ header.header-container {
                     color: white;
                 }
 
-                .logout-nav-item {
+                button {
+                    background-color: transparent;
+                    border: 0;
+                    cursor: pointer;
                     display: flex;
-                    gap: 4px;
+                    align-items: center;
+                    gap: 5px;
                 }
+
             }
         }
 

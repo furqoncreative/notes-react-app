@@ -20,9 +20,14 @@ function NotesApp() {
     await fetchAndSetAuthedUser(); // Update authedUser after login
   }
 
+  function onLogout() {
+    setAuthedUser(null);
+    putAccessToken("");
+  }
+
   return (
     <div className="notes-app">
-      <NotesAppHeader authedUser={authedUser} />
+      <NotesAppHeader authedUser={authedUser} logout={onLogout} />
       <NotesAppMain authedUser={authedUser} onLoginSuccess={onLoginSuccess} />
     </div>
   );

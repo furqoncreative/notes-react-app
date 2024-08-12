@@ -3,7 +3,7 @@ import { HiOutlineHome, HiOutlinePlusCircle } from "react-icons/hi2";
 import PropTypes from "prop-types";
 import { HiOutlineLogout } from "react-icons/hi";
 
-function NotesAppHeader({ authedUser }) {
+function NotesAppHeader({ authedUser, logout }) {
   return (
     <header className="header-container">
       <h1 className="header-title">
@@ -25,12 +25,9 @@ function NotesAppHeader({ authedUser }) {
               </Link>
             </li>
             <li>
-              <div className="logout-nav-item">
-                <span className="nav-item">{authedUser.name}</span>
-                <Link className="nav-item" to="/add-note">
-                  <HiOutlineLogout />
-                </Link>
-              </div>
+              <button className="nav-item" onClick={logout}>
+                {authedUser.name} <HiOutlineLogout />
+              </button>
             </li>
           </ul>
         </nav>
@@ -41,6 +38,7 @@ function NotesAppHeader({ authedUser }) {
 
 NotesAppHeader.propTypes = {
   authedUser: PropTypes.object,
+  logout: PropTypes.func.isRequired,
 };
 
 export default NotesAppHeader;
