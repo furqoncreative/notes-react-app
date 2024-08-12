@@ -5,8 +5,9 @@ import DetailPage from "../pages/DetailPage.jsx";
 import NotFound404Page from "../pages/NotFound404Page.jsx";
 import PropTypes from "prop-types";
 import LoginPage from "../pages/LoginPage.jsx";
+import RegisterPage from "../pages/RegisterPage.jsx";
 
-function NotesAppMain({ authedUser, onLoginSuccess }) {
+function NotesAppMain({ authedUser, onLoginSuccess, onRegisterSuccess }) {
   if (authedUser == null) {
     return (
       <main>
@@ -15,7 +16,10 @@ function NotesAppMain({ authedUser, onLoginSuccess }) {
             path="/*"
             element={<LoginPage loginSuccess={onLoginSuccess} />}
           />
-          <Route path="/register" element={<p>Halaman Register</p>} />
+          <Route
+            path="/register"
+            element={<RegisterPage onRegisterSuccess={onRegisterSuccess} />}
+          />
         </Routes>
       </main>
     );
@@ -36,6 +40,7 @@ function NotesAppMain({ authedUser, onLoginSuccess }) {
 NotesAppMain.propTypes = {
   authedUser: PropTypes.object,
   onLoginSuccess: PropTypes.func.isRequired,
+  onRegisterSuccess: PropTypes.func.isRequired,
 };
 
 export default NotesAppMain;
