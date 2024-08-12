@@ -77,10 +77,15 @@ header.header-container {
             li {
                 list-style: none;
 
-                a.nav-item {
+                .nav-item {
                     text-decoration: none;
                     font-size: 32px;
                     color: white;
+                }
+
+                .logout-nav-item {
+                    display: flex;
+                    gap: 4px;
                 }
             }
         }
