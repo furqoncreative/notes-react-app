@@ -1,5 +1,5 @@
 import { login } from "../utils/api.js";
-import React, { useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 function LoginPage({ loginSuccess }) {

@@ -20,7 +20,7 @@ function NotesAppHeader({ authedUser, logout }) {
               </Link>
             </li>
             <li>
-              <Link className="nav-item" to="/add-note">
+              <Link className="nav-item" to={"/add-note"}>
                 <HiOutlinePlusCircle />
               </Link>
             </li>

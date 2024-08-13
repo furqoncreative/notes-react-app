@@ -157,7 +157,7 @@ main {
         border: 3px solid var(--green);
 
         .note-search-form-container {
-            input.search-bar {
+            input.search-note {
                 margin-top: 8px;
                 display: flex;
                 flex-wrap: wrap;
