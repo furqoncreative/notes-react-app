@@ -1,19 +1,24 @@
 import NoteItem from "./NoteItem.jsx";
 import PropTypes from "prop-types";
+import ArchivedNoteItem from "./ArchivedNoteItem.jsx";
 
-function NotesList({ notes, onDelete, onArchive, showDetail }) {
-  const activeNotes = notes.filter((note) => note.archived === false);
-  const archivedNotes = notes.filter((note) => note.archived === true);
-
+function NotesList({
+  notes,
+  archivedNotes,
+  onDelete,
+  onArchive,
+  onUnarchive,
+  showDetail,
+}) {
   return (
     <div className="notes-container">
       <div className="notes active-notes-list">
         <h2>Active Notes</h2>
         <div className="note-list">
-          {activeNotes.length === 0 ? (
+          {notes.length === 0 ? (
             <p>Tidak ada catatan</p>
           ) : (
-            activeNotes.map((note) => (
+            notes.map((note) => (
               <NoteItem
                 key={note.id}
                 id={note.id}
@@ -36,7 +41,7 @@ function NotesList({ notes, onDelete, onArchive, showDetail }) {
             <p>Tidak ada catatan</p>
           ) : (
             archivedNotes.map((note) => (
-              <NoteItem
+              <ArchivedNoteItem
                 key={note.id}
                 id={note.id}
                 title={note.title}
@@ -44,7 +49,7 @@ function NotesList({ notes, onDelete, onArchive, showDetail }) {
                 createdAt={note.createdAt}
                 isArchived={note.archived}
                 onDelete={onDelete}
-                onArchive={onArchive}
+                onUnarchive={onUnarchive}
                 showDetail={showDetail}
               />
             ))
@@ -57,8 +62,10 @@ function NotesList({ notes, onDelete, onArchive, showDetail }) {
 
 NotesList.propTypes = {
   notes: PropTypes.array.isRequired,
+  archivedNotes: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
   onArchive: PropTypes.func.isRequired,
+  onUnarchive: PropTypes.func.isRequired,
   showDetail: PropTypes.func.isRequired,
 };
 

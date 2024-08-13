@@ -1,29 +1,56 @@
 import { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar.jsx";
 import NotesList from "../components/NotesList.jsx";
-import { archiveNote, deleteNote, getNotes } from "../utils/data.js";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import {
+  archiveNote,
+  deleteNote,
+  getArchivedNotes,
+  getNotes,
+  unarchiveNote,
+} from "../utils/api.js";
 
 function HomePage() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [notes, setNotes] = useState([]);
+  const [archivedNotes, setArchivedNotes] = useState([]);
   const [keyword, setKeyword] = useState(() => {
     return searchParams.get("keyword") || "";
   });
 
-  useEffect(() => {
-    setNotes(getNotes());
-  }, []);
+  async function updateNotes() {
+    const [notesResponse, archivedNotesResponse] = await Promise.all([
+      getNotes(),
+      getArchivedNotes(),
+    ]);
 
-  function onDeleteNoteHandler(id) {
-    deleteNote(id);
-    setNotes(getNotes);
+    setNotes(notesResponse.data);
+    setArchivedNotes(archivedNotesResponse.data);
   }
 
-  function onArchiveNoteHandler(id) {
-    archiveNote(id);
-    setNotes(getNotes);
+  useEffect(() => {
+    updateNotes().catch(() => {
+      console.log("Error fetching notes");
+    });
+  }, []);
+
+  async function onDeleteNoteHandler(id) {
+    await deleteNote(id);
+
+    await updateNotes();
+  }
+
+  async function onArchiveNoteHandler(id) {
+    await archiveNote(id);
+
+    await updateNotes();
+  }
+
+  async function onUnarchiveNoteHandler(id) {
+    await unarchiveNote(id);
+
+    await updateNotes();
   }
 
   function onKeywordChangeHandler(keyword) {
@@ -39,13 +66,19 @@ function HomePage() {
     return note.title.toLowerCase().includes(keyword.toLowerCase());
   });
 
+  const filteredArchivedNotes = archivedNotes.filter((note) => {
+    return note.title.toLowerCase().includes(keyword.toLowerCase());
+  });
+
   return (
     <section className="notes-section">
       <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler} />
       <NotesList
         notes={filteredNotes}
+        archivedNotes={filteredArchivedNotes}
         onDelete={onDeleteNoteHandler}
         onArchive={onArchiveNoteHandler}
+        onUnarchive={onUnarchiveNoteHandler}
         showDetail={onShowDetailHandler}
       />
     </section>

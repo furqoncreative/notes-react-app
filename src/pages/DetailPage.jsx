@@ -1,13 +1,20 @@
-import { findNote, showFormattedDate } from "../utils/data.js";
+import { showFormattedDate } from "../utils/data.js";
 import { useParams } from "react-router-dom";
 import NotFound404Page from "./NotFound404Page.jsx";
+import { getNote } from "../utils/api.js";
+import { useEffect, useState } from "react";
 
 function DetailPage() {
+  const [data, setData] = useState(null);
   const { id } = useParams();
 
-  try {
-    const data = findNote(Number(id));
+  useEffect(() => {
+    getNote(id).then(({ data }) => {
+      setData(data);
+    });
+  }, [id]);
 
+  try {
     if (!data) {
       return <NotFound404Page />;
     }
