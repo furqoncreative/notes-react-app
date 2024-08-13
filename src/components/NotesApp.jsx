@@ -14,8 +14,10 @@ function NotesApp() {
   }
 
   useEffect(() => {
-    fetchAndSetAuthedUser();
-  }, []);
+    fetchAndSetAuthedUser().catch(() => {
+      console.log("Error fetching user");
+    });
+  }, [authedUser]);
 
   async function onLoginSuccess({ accessToken }) {
     putAccessToken(accessToken);

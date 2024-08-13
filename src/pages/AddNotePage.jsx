@@ -1,6 +1,6 @@
 import NoteInput from "../components/NoteInput.jsx";
 import { useNavigate } from "react-router-dom";
-import { addNote } from "../utils/data.js";
+import { addNotes } from "../utils/api.js";
 
 function AddNotePage() {
   const navigate = useNavigate();
@@ -13,8 +13,7 @@ function AddNotePage() {
       createdAt: new Date().toISOString(),
       archived: false,
     };
-    addNote(newNote);
-    navigate("/");
+    addNotes(newNote).then(() => navigate("/"));
   }
 
   return <NoteInput addNote={onAddNoteHandler} />;
