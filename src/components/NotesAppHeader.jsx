@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { HiOutlineHome, HiOutlinePlusCircle } from "react-icons/hi2";
 import PropTypes from "prop-types";
 import { HiOutlineLogout } from "react-icons/hi";
+import ToggleTheme from "./ToggleTheme.jsx";
 
 function NotesAppHeader({ authedUser, logout }) {
   return (
@@ -23,6 +24,9 @@ function NotesAppHeader({ authedUser, logout }) {
               <Link className="nav-item" to={"/add-note"}>
                 <HiOutlinePlusCircle />
               </Link>
+            </li>
+            <li>
+              <ToggleTheme />
             </li>
             <li>
               <button className="nav-item" onClick={logout}>

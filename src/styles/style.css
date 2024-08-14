@@ -1,10 +1,3 @@
-:root {
-    --teal: #006769;
-    --green: #40A578;
-    --nature: #9DDE8B;
-    --summer: #97BE5A;
-}
-
 * {
     padding: 0;
     margin: 0;
@@ -17,7 +10,9 @@
     box-sizing: border-box;
 }
 
-body {
+.notes-app {
+    background: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
     font-family: "Poppins", sans-serif;
 
     height: 100vh;
@@ -29,7 +24,7 @@ body {
 
 input {
     padding: 8px;
-    border: 1px solid var(--summer);
+    border: 1px solid var(--md-sys-color-secondary);
 }
 
 button {
@@ -38,13 +33,14 @@ button {
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    background: var(--green);
-    color: white;
+    background: var(--md-sys-color-secondary);
+    color: var(--md-sys-color-on-secondary);
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: var(--teal);
+    background-color: var(--md-sys-color-inverse-primary);
+    color: var(--md-sys-color-inverse-on-surface);
 }
 
 button:focus {
@@ -56,7 +52,8 @@ header.header-container {
     width: 60%;
     padding-inline: 20px;
     padding-block: 16px;
-    background-color: var(--teal);
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
 
     display: flex;
     justify-content: space-between;
@@ -64,7 +61,7 @@ header.header-container {
 
     .header-title {
         font-size: xx-large;
-        color: white;
+        color: var(--md-sys-color-on-primary-container);
         text-decoration: none;
     }
 
@@ -80,9 +77,10 @@ header.header-container {
                 list-style: none;
 
                 .nav-item {
+                    display: flex;
                     text-decoration: none;
                     font-size: 32px;
-                    color: white;
+                    color: var(--md-sys-color-on-background);
                 }
 
                 button {
@@ -92,6 +90,8 @@ header.header-container {
                     display: flex;
                     align-items: center;
                     gap: 5px;
+                    padding: 0;
+                    margin: 0;
                 }
 
             }
@@ -115,7 +115,7 @@ main {
         width: 60%;
         padding: 20px;
         align-content: center;
-        border: 3px solid var(--green);
+        border: 3px solid var(--md-sys-color-secondary);
 
         form.universal-form {
             margin-top: 16px;
@@ -154,7 +154,7 @@ main {
         gap: 20px;
         width: 60%;
         padding: 20px;
-        border: 3px solid var(--green);
+        border: 3px solid var(--md-sys-color-secondary);
 
         .note-search-form-container {
             input.search-note {
@@ -182,8 +182,8 @@ main {
                         flex-direction: column;
                         padding: 8px;
                         gap: 8px;
-                        border: 1px solid rgba(0, 0, 0, 0.2);
-                        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+                        border: 1px solid var(--md-sys-color-secondary);
+                        box-shadow: 2px 2px 2px 1px var(--md-sys-color-secondary);
                         margin-block: 10px;
 
                         .action {
@@ -192,13 +192,13 @@ main {
                             gap: 8px;
 
                             .action-delete {
-                                background: darkred;
-                                color: white;
+                                background: var(--md-sys-color-error-container);
+                                color: var(--md-sys-color-on-error-container);
                             }
 
                             .action-archive {
-                                background: var(--nature);
-                                color: black;
+                                background: var(--md-sys-color-tertiary-container);
+                                color: var(--md-sys-color-on-tertiary-container);
                             }
                         }
                     }
@@ -211,7 +211,7 @@ main {
         width: 60%;
         display: flex;
         flex-direction: column;
-        border: 3px solid var(--green);
+        border: 3px solid var(--md-sys-color-secondary);
         padding: 16px;
         gap: 10px;
 
@@ -223,7 +223,7 @@ main {
         width: 60%;
         display: flex;
         flex-direction: column;
-        border: 3px solid darkred;
+        border: 3px solid var(--md-sys-color-error);
         padding: 16px;
         gap: 10px;
 
@@ -231,7 +231,7 @@ main {
         align-items: center;
 
         h1, p {
-            color: darkred;
+            color: var(--md-sys-color-error);
         }
     }
 }
