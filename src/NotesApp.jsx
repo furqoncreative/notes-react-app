@@ -4,14 +4,18 @@ import { useEffect, useMemo, useState } from "react";
 import { getUserLogged, putAccessToken } from "./utils/api.js";
 import { useNavigate } from "react-router-dom";
 import ThemeContext from "./contexts/ThemeContext.js";
+import LocaleContext from "./contexts/LocaleContext.js";
 
 function NotesApp() {
+  const navigate = useNavigate();
+
   const [authedUser, setAuthedUser] = useState(null);
   const [theme, setTheme] = useState(
     () => localStorage.getItem("theme") || "light",
   );
-
-  const navigate = useNavigate();
+  const [locale, setLocale] = useState(
+    () => localStorage.getItem("locale") || "id",
+  );
 
   async function fetchAndSetAuthedUser() {
     const { data } = await getUserLogged();
@@ -30,12 +34,26 @@ function NotesApp() {
     setTheme(newTheme);
   };
 
+  const toggleLocale = () => {
+    const newLocale = locale === "id" ? "en" : "id";
+    localStorage.setItem("locale", newLocale);
+    setLocale(newLocale);
+  };
+
   const themeContextValue = useMemo(
     () => ({
       theme,
       toggleTheme,
     }),
     [theme],
+  );
+
+  const localeContextValue = useMemo(
+    () => ({
+      locale,
+      toggleLocale,
+    }),
+    [locale],
   );
 
   async function onLoginSuccess({ accessToken }) {
@@ -54,14 +72,16 @@ function NotesApp() {
 
   return (
     <ThemeContext.Provider value={themeContextValue}>
-      <div className={`notes-app ${theme}`}>
-        <NotesAppHeader authedUser={authedUser} logout={onLogout} />
-        <NotesAppMain
-          authedUser={authedUser}
-          onLoginSuccess={onLoginSuccess}
-          onRegisterSuccess={onRegisterSuccess}
-        />
-      </div>
+      <LocaleContext.Provider value={localeContextValue}>
+        <div className={`notes-app ${theme}`}>
+          <NotesAppHeader authedUser={authedUser} logout={onLogout} />
+          <NotesAppMain
+            authedUser={authedUser}
+            onLoginSuccess={onLoginSuccess}
+            onRegisterSuccess={onRegisterSuccess}
+          />
+        </div>
+      </LocaleContext.Provider>
     </ThemeContext.Provider>
   );
 }

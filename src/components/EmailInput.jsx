@@ -7,7 +7,7 @@ export function EmailInput({ email, onChangeEmail }) {
       <input
         id="input-email"
         type="email"
-        placeholder="Email"
+        placeholder="Input Email"
         onChange={onChangeEmail}
         value={email}
       />

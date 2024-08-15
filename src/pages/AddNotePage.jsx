@@ -13,6 +13,7 @@ function AddNotePage() {
       createdAt: new Date().toISOString(),
       archived: false,
     };
+
     addNotes(newNote).then(() => navigate("/"));
   }
 

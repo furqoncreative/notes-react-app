@@ -1,6 +1,8 @@
 import NoteItem from "./NoteItem.jsx";
 import PropTypes from "prop-types";
 import ArchivedNoteItem from "./ArchivedNoteItem.jsx";
+import { useContext } from "react";
+import LocaleContext from "../contexts/LocaleContext.js";
 
 function NotesList({
   notes,
@@ -10,13 +12,15 @@ function NotesList({
   onUnarchive,
   showDetail,
 }) {
+  const { locale } = useContext(LocaleContext);
+
   return (
     <div className="notes-container">
       <div className="notes active-notes-list">
-        <h2>Active Notes</h2>
+        <h2>{locale === "id" ? "Catatan" : "Notes"}</h2>
         <div className="note-list">
           {notes.length === 0 ? (
-            <p>Tidak ada catatan</p>
+            <p>{locale === "id" ? "Tidak ada catatan" : "No records"}</p>
           ) : (
             notes.map((note) => (
               <NoteItem
@@ -35,10 +39,12 @@ function NotesList({
         </div>
       </div>
       <div className="notes archived-notes-list">
-        <h2>Archived Notes</h2>
+        <h2>
+          {locale === "id" ? "Catatan yang diarsipkan" : "Archived notes"}
+        </h2>
         <div className="note-list">
           {archivedNotes.length === 0 ? (
-            <p>Tidak ada catatan</p>
+            <p>{locale === "id" ? "Tidak ada catatan" : "No records"}</p>
           ) : (
             archivedNotes.map((note) => (
               <ArchivedNoteItem

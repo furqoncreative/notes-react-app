@@ -3,13 +3,18 @@ import { HiOutlineHome, HiOutlinePlusCircle } from "react-icons/hi2";
 import PropTypes from "prop-types";
 import { HiOutlineLogout } from "react-icons/hi";
 import ToggleTheme from "./ToggleTheme.jsx";
+import { useContext } from "react";
+import LocaleContext from "../contexts/LocaleContext.js";
+import ToggleLocale from "./ToggleLocale.jsx";
 
 function NotesAppHeader({ authedUser, logout }) {
+  const { locale } = useContext(LocaleContext);
+
   return (
     <header className="header-container">
       <h1 className="header-title">
         <Link className="header-title" to="/">
-          Notes App
+          ReactNote
         </Link>
       </h1>
       {authedUser != null && (
@@ -26,6 +31,9 @@ function NotesAppHeader({ authedUser, logout }) {
               </Link>
             </li>
             <li>
+              <ToggleLocale />
+            </li>
+            <li>
               <ToggleTheme />
             </li>
             <li>
@@ -39,6 +47,9 @@ function NotesAppHeader({ authedUser, logout }) {
       {authedUser == null && (
         <nav className="navigation">
           <ul>
+            <li>
+              <ToggleLocale />
+            </li>
             <li>
               <ToggleTheme />
             </li>
