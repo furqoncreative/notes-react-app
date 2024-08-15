@@ -168,6 +168,7 @@ main {
 
         .note-search-form-container {
             input.search-note {
+                width: 100%;
                 margin-top: 8px;
                 display: flex;
                 flex-wrap: wrap;

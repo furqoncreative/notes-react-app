@@ -1,82 +1,66 @@
-import React from "react";
+import { useContext, useState } from "react";
 import PropTypes from "prop-types";
+import LocaleContext from "../contexts/LocaleContext.js";
 
-class NoteInput extends React.Component {
-  constructor(props) {
-    super(props);
+function NoteInput({ addNote }) {
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+  const [titleLimit, setTitleLimit] = useState(50);
+  const { locale } = useContext(LocaleContext);
 
-    this.state = {
-      title: "",
-      body: "",
-      titleLimit: 50,
-    };
-
-    this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
-    this.onBodyChangeEventHandler = this.onBodyChangeEventHandler.bind(this);
-    this.onSubmitEventHandler = this.onSubmitEventHandler.bind(this);
+  function onTitleChangeEventHandler(event) {
+    setTitle(event.target.value);
+    setTitleLimit(50 - event.target.value.length);
   }
 
-  onTitleChangeEventHandler(event) {
-    this.setState(() => {
-      const titleLimit = 50 - event.target.value.length;
-
-      return titleLimit < 0
-        ? null
-        : {
-            title: event.target.value,
-            titleLimit: titleLimit,
-          };
-    });
+  function onBodyChangeEventHandler(event) {
+    setBody(event.target.value);
   }
 
-  onBodyChangeEventHandler(event) {
-    this.setState(() => {
-      return {
-        body: event.target.value,
-      };
-    });
-  }
-
-  onSubmitEventHandler(event) {
+  function onSubmitEventHandler(event) {
     event.preventDefault();
-    this.props.addNote(this.state);
+    addNote({ title, body });
   }
 
-  render() {
-    return (
-      <section className="input-note-section">
-        <h2>Add New Note</h2>
-        <form onSubmit={this.onSubmitEventHandler}>
-          <div className="input">
-            <label htmlFor="input-note-title">
-              Title (Limit: {this.state.titleLimit})
-            </label>
-            <input
-              id="input-note-title"
-              type="text"
-              placeholder={"Type your title here..."}
-              onChange={this.onTitleChangeEventHandler}
-              value={this.state.title}
-              required
-            />
-          </div>
-          <div className="input">
-            <label htmlFor="input-note-content">Note</label>
-            <textarea
-              id="input-note-content"
-              placeholder={"Type your note here..."}
-              onChange={this.onBodyChangeEventHandler}
-              value={this.state.body}
-              required
-            />
-          </div>
-          <button id="noteSubmit" type="submit">
-            Add Note
-          </button>
-        </form>
-      </section>
-    );
-  }
+  return (
+    <section className="input-note-section">
+      <h2>{locale === "id" ? "Tambah Catatan Baru" : "Add New Note"}</h2>
+      <form onSubmit={onSubmitEventHandler}>
+        <div className="input">
+          <label htmlFor="input-note-title">
+            {locale === "id" ? "Judul (Batas" : "Title (Limit"}: {titleLimit})
+          </label>
+          <input
+            id="input-note-title"
+            type="text"
+            placeholder={"Type your title here..."}
+            onChange={onTitleChangeEventHandler}
+            value={title}
+            required
+          />
+        </div>
+        <div className="input">
+          <label htmlFor="input-note-content">
+            {locale === "id" ? "Catatan" : "Note"}
+          </label>
+          <textarea
+            id="input-note-content"
+            placeholder={
+              locale === "id"
+                ? "Tulis catatanmu di sini..."
+                : "Type your note here..."
+            }
+            onChange={onBodyChangeEventHandler}
+            value={body}
+            required
+          />
+        </div>
+        <button id="noteSubmit" type="submit">
+          {locale === "id" ? "Tambah Catatan" : "Add Note"}
+        </button>
+      </form>
+    </section>
+  );
 }
 
 NoteInput.propTypes = {
