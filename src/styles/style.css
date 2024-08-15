@@ -33,18 +33,22 @@ button {
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    background: var(--md-sys-color-secondary);
-    color: var(--md-sys-color-on-secondary);
+    background: var(--md-sys-color-tertiary-container);
+    color: var(--md-sys-color-on-tertiary-container);
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: var(--md-sys-color-inverse-primary);
-    color: var(--md-sys-color-inverse-on-surface);
+    background-color: var(--md-sys-color-on-tertiary-container);
+    color: var(--md-sys-color-tertiary-container);
 }
 
 button:focus {
     outline: none;
+}
+
+a {
+    color: var(--md-sys-color-tertiary);
 }
 
 header.header-container {
@@ -117,7 +121,7 @@ main {
         align-content: center;
         border: 3px solid var(--md-sys-color-secondary);
 
-        form.universal-form {
+        form {
             margin-top: 16px;
             display: flex;
             flex-wrap: wrap;
@@ -133,8 +137,15 @@ main {
                 flex-direction: column;
             }
 
+            input {
+                background-color: var(--md-sys-color-surface);
+                color: var(--md-sys-color-on-surface);
+            }
+
             textarea {
                 height: 150px;
+                background-color: var(--md-sys-color-surface);
+                color: var(--md-sys-color-on-surface);
             }
 
             button {
@@ -146,7 +157,6 @@ main {
             }
         }
     }
-
 
     section.notes-section {
         display: flex;
@@ -196,9 +206,19 @@ main {
                                 color: var(--md-sys-color-on-error-container);
                             }
 
+                            .action-delete:hover {
+                                background: var(--md-sys-color-on-error-container);
+                                color: var(--md-sys-color-error-container);
+                            }
+
                             .action-archive {
-                                background: var(--md-sys-color-tertiary-container);
-                                color: var(--md-sys-color-on-tertiary-container);
+                                background: var(--md-sys-color-secondary-container);
+                                color: var(--md-sys-color-on-secondary-container);
+                            }
+
+                            .action-archive:hover {
+                                background: var(--md-sys-color-on-secondary-container);
+                                color: var(--md-sys-color-secondary-container);
                             }
                         }
                     }

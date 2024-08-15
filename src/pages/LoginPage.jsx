@@ -1,6 +1,7 @@
 import { login } from "../utils/api.js";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { LoginForm } from "../components/LoginForm.jsx";
 
 function LoginPage({ loginSuccess }) {
   const [email, setEmail] = useState("");
@@ -27,35 +28,13 @@ function LoginPage({ loginSuccess }) {
   }
 
   return (
-    <section className="auth-form">
-      <h1>Login</h1>
-      <form className="universal-form" onSubmit={onLogin}>
-        <div className="input">
-          <label htmlFor="input-email">Email</label>
-          <input
-            id="input-email"
-            type="email"
-            placeholder="Email"
-            onChange={onChangeEmail}
-            value={email}
-          />
-        </div>
-        <div className="input">
-          <label htmlFor="input-passsword">Password</label>
-          <input
-            id="input-passsword"
-            type="password"
-            placeholder="Password"
-            onChange={onChangePassword}
-            value={password}
-          />
-        </div>
-        <span>
-          Belum punya akun? <a href="/register">Daftar di sini</a>
-        </span>
-        <button type="submit">Login</button>
-      </form>
-    </section>
+    <LoginForm
+      email={email}
+      onChangeEmail={onChangeEmail}
+      password={password}
+      onChangePassword={onChangePassword}
+      onLogin={onLogin}
+    />
   );
 }
 

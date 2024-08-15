@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { register } from "../utils/api.js";
 import PropTypes from "prop-types";
+import { RegisterForm } from "../components/RegisterForm.jsx";
 
 function RegisterPage({ onRegisterSuccess }) {
   const [email, setEmail] = useState("");
@@ -32,42 +33,15 @@ function RegisterPage({ onRegisterSuccess }) {
   }
 
   return (
-    <section className="auth-form">
-      <h1>Register</h1>
-      <form className="universal-form" onSubmit={onRegister}>
-        <div className="input">
-          <label htmlFor="input-email">Email</label>
-          <input
-            id="input-email"
-            type="email"
-            placeholder="Email"
-            onChange={onChangeEmail}
-            value={email}
-          />
-        </div>
-        <div className="input">
-          <label htmlFor="input-name">Name</label>
-          <input
-            id="input-name"
-            type="text"
-            placeholder="Name"
-            onChange={onChangeName}
-            value={name}
-          />
-        </div>
-        <div className="input">
-          <label htmlFor="input-passsword">Password</label>
-          <input
-            id="input-passsword"
-            type="password"
-            placeholder="Password"
-            onChange={onChangePassword}
-            value={password}
-          />
-        </div>
-        <button type="submit">Register</button>
-      </form>
-    </section>
+    <RegisterForm
+      name={name}
+      email={email}
+      password={password}
+      onChangeName={onChangeName}
+      onChangeEmail={onChangeEmail}
+      onChangePassword={onChangePassword}
+      onRegister={onRegister}
+    />
   );
 }
 

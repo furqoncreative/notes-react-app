@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import AddNotePage from "../pages/AddNotePage.jsx";
 import HomePage from "../pages/HomePage.jsx";
 import DetailPage from "../pages/DetailPage.jsx";
@@ -29,6 +29,8 @@ function NotesAppMain({ authedUser, onLoginSuccess, onRegisterSuccess }) {
     <main>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Navigate to="/" replace />} />
+        <Route path="/register" element={<Navigate to="/" replace />} />
         <Route path="/add-note" element={<AddNotePage />} />
         <Route path="/notes/:id" element={<DetailPage />} />
         <Route path="*" element={<NotFound404Page />} />

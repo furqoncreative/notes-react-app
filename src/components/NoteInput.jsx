@@ -46,7 +46,7 @@ class NoteInput extends React.Component {
     return (
       <section className="input-note-section">
         <h2>Add New Note</h2>
-        <form className="universal-form" onSubmit={this.onSubmitEventHandler}>
+        <form onSubmit={this.onSubmitEventHandler}>
           <div className="input">
             <label htmlFor="input-note-title">
               Title (Limit: {this.state.titleLimit})

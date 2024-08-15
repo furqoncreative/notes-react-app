@@ -36,6 +36,15 @@ function NotesAppHeader({ authedUser, logout }) {
           </ul>
         </nav>
       )}
+      {authedUser == null && (
+        <nav className="navigation">
+          <ul>
+            <li>
+              <ToggleTheme />
+            </li>
+          </ul>
+        </nav>
+      )}
     </header>
   );
 }
