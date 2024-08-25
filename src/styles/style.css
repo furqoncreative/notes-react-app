@@ -164,11 +164,14 @@ main {
         gap: 20px;
         width: 60%;
         padding: 20px;
+        justify-content: center;
+        align-items: center;
         border: 3px solid var(--md-sys-color-secondary);
 
         .note-search-form-container {
+            width: 100%;
             input.search-note {
-                width: 100%;
+                width: 50%;
                 margin-top: 8px;
                 display: flex;
                 flex-wrap: wrap;
@@ -178,6 +181,7 @@ main {
         }
 
         .notes-container {
+            width: 100%;
             display: flex;
             flex-wrap: wrap;
             gap: 20px;

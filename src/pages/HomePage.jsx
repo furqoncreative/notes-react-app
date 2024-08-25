@@ -9,10 +9,12 @@ import {
   getNotes,
   unarchiveNote,
 } from "../utils/api.js";
+import { ClipLoader } from "react-spinners";
 
 function HomePage() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isLoading, setLoading] = useState(false);
   const [notes, setNotes] = useState([]);
   const [archivedNotes, setArchivedNotes] = useState([]);
   const [keyword, setKeyword] = useState(() => {
@@ -20,16 +22,17 @@ function HomePage() {
   });
 
   async function updateNotes() {
-    const [notesResponse, archivedNotesResponse] = await Promise.all([
-      getNotes(),
-      getArchivedNotes(),
-    ]);
-
-    setNotes(notesResponse.data);
-    setArchivedNotes(archivedNotesResponse.data);
+    await Promise.all([getNotes().then(), getArchivedNotes()]).then(
+      ([notesResponse, archivedNotesResponse]) => {
+        setNotes(notesResponse.data);
+        setArchivedNotes(archivedNotesResponse.data);
+        setLoading(false);
+      },
+    );
   }
 
   useEffect(() => {
+    setLoading(true);
     updateNotes().catch(() => {
       console.log("Error fetching notes");
     });
@@ -73,14 +76,23 @@ function HomePage() {
   return (
     <section className="notes-section">
       <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler} />
-      <NotesList
-        notes={filteredNotes}
-        archivedNotes={filteredArchivedNotes}
-        onDelete={onDeleteNoteHandler}
-        onArchive={onArchiveNoteHandler}
-        onUnarchive={onUnarchiveNoteHandler}
-        showDetail={onShowDetailHandler}
-      />
+      {isLoading ? (
+        <ClipLoader
+          loading={isLoading}
+          size={50}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      ) : (
+        <NotesList
+          notes={filteredNotes}
+          archivedNotes={filteredArchivedNotes}
+          onDelete={onDeleteNoteHandler}
+          onArchive={onArchiveNoteHandler}
+          onUnarchive={onUnarchiveNoteHandler}
+          showDetail={onShowDetailHandler}
+        />
+      )}
     </section>
   );
 }

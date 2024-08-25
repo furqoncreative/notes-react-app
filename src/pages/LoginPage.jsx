@@ -6,17 +6,21 @@ import { LoginForm } from "../components/LoginForm.jsx";
 function LoginPage({ loginSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
   async function onLogin(event) {
     event.preventDefault();
+    setLoading(true);
 
-    const { error, data } = await login({ email, password });
-
-    if (!error) {
-      loginSuccess(data);
-    } else {
-      console.error("Login failed:", error);
-    }
+    login({ email, password })
+      .then(({ data }) => {
+        loginSuccess(data);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.error("Login failed:", e);
+        setLoading(false);
+      });
   }
 
   function onChangeEmail(event) {
@@ -33,6 +37,7 @@ function LoginPage({ loginSuccess }) {
       onChangeEmail={onChangeEmail}
       password={password}
       onChangePassword={onChangePassword}
+      isLoading={isLoading}
       onLogin={onLogin}
     />
   );

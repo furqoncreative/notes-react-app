@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import LocaleContext from "../contexts/LocaleContext.js";
+import { ClipLoader } from "react-spinners";
 
-function NoteInput({ addNote }) {
+function NoteInput({ addNote, isLoading }) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [titleLimit, setTitleLimit] = useState(50);
@@ -55,9 +56,18 @@ function NoteInput({ addNote }) {
             required
           />
         </div>
-        <button id="noteSubmit" type="submit">
-          {locale === "id" ? "Tambah Catatan" : "Add Note"}
-        </button>
+        {isLoading ? (
+          <ClipLoader
+            loading={isLoading}
+            size={20}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        ) : (
+          <button id="noteSubmit" type="submit">
+            {locale === "id" ? "Tambah Catatan" : "Add Note"}
+          </button>
+        )}
       </form>
     </section>
   );
@@ -65,6 +75,7 @@ function NoteInput({ addNote }) {
 
 NoteInput.propTypes = {
   addNote: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default NoteInput;

@@ -3,6 +3,7 @@ import { EmailInput } from "./EmailInput.jsx";
 import { PasswordInput } from "./PasswordInput.jsx";
 import { useContext } from "react";
 import LocaleContext from "../contexts/LocaleContext.js";
+import { ClipLoader } from "react-spinners";
 
 export function RegisterForm({
   name,
@@ -12,6 +13,7 @@ export function RegisterForm({
   password,
   onChangePassword,
   onRegister,
+  isLoading,
 }) {
   const { locale } = useContext(LocaleContext);
 
@@ -40,7 +42,18 @@ export function RegisterForm({
           password={password}
           onChangePassword={onChangePassword}
         />
-        <button type="submit">{locale === "id" ? "Daftar" : "Register"}</button>
+        {isLoading ? (
+          <ClipLoader
+            loading={isLoading}
+            size={20}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        ) : (
+          <button type="submit">
+            {locale === "id" ? "Daftar" : "Register"}
+          </button>
+        )}
         {locale === "id" ? (
           <p>
             Sudah punya akun? <a href="/login">Masuk di sini </a>
@@ -63,4 +76,5 @@ RegisterForm.propTypes = {
   password: PropTypes.string.isRequired,
   onChangePassword: PropTypes.func.isRequired,
   onRegister: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };

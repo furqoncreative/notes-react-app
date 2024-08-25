@@ -7,17 +7,21 @@ function RegisterPage({ onRegisterSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
   async function onRegister(event) {
     event.preventDefault();
+    setLoading(true);
 
-    const { error, data } = await register({ email, password, name });
-
-    if (!error) {
-      onRegisterSuccess(data);
-    } else {
-      console.error("Register failed:", error);
-    }
+    register({ email, password, name })
+      .then(({ data }) => {
+        onRegisterSuccess(data);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.error("Register failed:", e);
+        setLoading(false);
+      });
   }
 
   function onChangeEmail(event) {
@@ -41,6 +45,7 @@ function RegisterPage({ onRegisterSuccess }) {
       onChangeEmail={onChangeEmail}
       onChangePassword={onChangePassword}
       onRegister={onRegister}
+      isLoading={isLoading}
     />
   );
 }

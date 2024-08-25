@@ -3,12 +3,14 @@ import { EmailInput } from "./EmailInput.jsx";
 import { PasswordInput } from "./PasswordInput.jsx";
 import { useContext } from "react";
 import LocaleContext from "../contexts/LocaleContext.js";
+import { ClipLoader } from "react-spinners";
 
 export function LoginForm({
   email,
   onChangeEmail,
   password,
   onChangePassword,
+  isLoading,
   onLogin,
 }) {
   const { locale } = useContext(LocaleContext);
@@ -26,7 +28,16 @@ export function LoginForm({
           password={password}
           onChangePassword={onChangePassword}
         />
-        <button type="submit">{locale === "id" ? "Masuk" : "Login"}</button>
+        {isLoading ? (
+          <ClipLoader
+            loading={isLoading}
+            size={20}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        ) : (
+          <button type="submit">{locale === "id" ? "Masuk" : "Login"}</button>
+        )}
 
         {locale === "id" ? (
           <p>
@@ -47,5 +58,6 @@ LoginForm.propTypes = {
   onChangeEmail: PropTypes.func.isRequired,
   password: PropTypes.string.isRequired,
   onChangePassword: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   onLogin: PropTypes.func.isRequired,
 };
