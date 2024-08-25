@@ -4,12 +4,9 @@ import PropTypes from "prop-types";
 import { LoginForm } from "../components/LoginForm.jsx";
 
 function LoginPage({ loginSuccess }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isLoading, setLoading] = useState(false);
 
-  async function onLogin(event) {
-    event.preventDefault();
+  async function onLogin(email, password) {
     setLoading(true);
 
     login({ email, password })
@@ -23,24 +20,7 @@ function LoginPage({ loginSuccess }) {
       });
   }
 
-  function onChangeEmail(event) {
-    setEmail(event.target.value);
-  }
-
-  function onChangePassword(event) {
-    setPassword(event.target.value);
-  }
-
-  return (
-    <LoginForm
-      email={email}
-      onChangeEmail={onChangeEmail}
-      password={password}
-      onChangePassword={onChangePassword}
-      isLoading={isLoading}
-      onLogin={onLogin}
-    />
-  );
+  return <LoginForm isLoading={isLoading} onLogin={onLogin} />;
 }
 
 LoginPage.propTypes = {

@@ -4,13 +4,9 @@ import PropTypes from "prop-types";
 import { RegisterForm } from "../components/RegisterForm.jsx";
 
 function RegisterPage({ onRegisterSuccess }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [isLoading, setLoading] = useState(false);
 
-  async function onRegister(event) {
-    event.preventDefault();
+  async function onRegister(email, password, name) {
     setLoading(true);
 
     register({ email, password, name })
@@ -24,30 +20,7 @@ function RegisterPage({ onRegisterSuccess }) {
       });
   }
 
-  function onChangeEmail(event) {
-    setEmail(event.target.value);
-  }
-
-  function onChangePassword(event) {
-    setPassword(event.target.value);
-  }
-
-  function onChangeName(event) {
-    setName(event.target.value);
-  }
-
-  return (
-    <RegisterForm
-      name={name}
-      email={email}
-      password={password}
-      onChangeName={onChangeName}
-      onChangeEmail={onChangeEmail}
-      onChangePassword={onChangePassword}
-      onRegister={onRegister}
-      isLoading={isLoading}
-    />
-  );
+  return <RegisterForm onRegister={onRegister} isLoading={isLoading} />;
 }
 
 RegisterPage.propTypes = {

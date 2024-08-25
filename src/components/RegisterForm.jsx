@@ -4,18 +4,17 @@ import { PasswordInput } from "./PasswordInput.jsx";
 import { useContext } from "react";
 import LocaleContext from "../contexts/LocaleContext.js";
 import { ClipLoader } from "react-spinners";
+import useInput from "../hooks/useInput.js";
 
-export function RegisterForm({
-  name,
-  onChangeName,
-  email,
-  onChangeEmail,
-  password,
-  onChangePassword,
-  onRegister,
-  isLoading,
-}) {
+export function RegisterForm({ onRegister, isLoading }) {
   const { locale } = useContext(LocaleContext);
+  const [email, onChangeEmail] = useInput("");
+  const [password, onChangePassword] = useInput("");
+  const [name, onChangeName] = useInput("");
+
+  function onRegisterClick() {
+    onRegister(email, password, name);
+  }
 
   return (
     <section className="auth-form">
@@ -24,7 +23,7 @@ export function RegisterForm({
           ? "Daftarkan akunmu segera!"
           : "Register your account now!"}
       </h1>
-      <form onSubmit={onRegister}>
+      <form onSubmit={onRegisterClick}>
         <div className="input">
           <label htmlFor="input-name">
             {locale === "id" ? "Nama" : "Name"}
@@ -69,12 +68,6 @@ export function RegisterForm({
 }
 
 RegisterForm.propTypes = {
-  name: PropTypes.string.isRequired,
-  onChangeName: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired,
-  onChangeEmail: PropTypes.func.isRequired,
-  password: PropTypes.string.isRequired,
-  onChangePassword: PropTypes.func.isRequired,
   onRegister: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };

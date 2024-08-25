@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar.jsx";
 import NotesList from "../components/NotesList.jsx";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   archiveNote,
   deleteNote,
@@ -10,16 +10,14 @@ import {
   unarchiveNote,
 } from "../utils/api.js";
 import { ClipLoader } from "react-spinners";
+import useSearch from "../hooks/useSearch.js";
 
 function HomePage() {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setLoading] = useState(false);
   const [notes, setNotes] = useState([]);
   const [archivedNotes, setArchivedNotes] = useState([]);
-  const [keyword, setKeyword] = useState(() => {
-    return searchParams.get("keyword") || "";
-  });
+  const [keyword, onKeywordChangeHandler] = useSearch("keyword");
 
   async function updateNotes() {
     await Promise.all([getNotes().then(), getArchivedNotes()]).then(
@@ -54,11 +52,6 @@ function HomePage() {
     await unarchiveNote(id);
 
     await updateNotes();
-  }
-
-  function onKeywordChangeHandler(keyword) {
-    setKeyword(keyword);
-    setSearchParams({ keyword });
   }
 
   function onShowDetailHandler(id) {

@@ -4,16 +4,16 @@ import { PasswordInput } from "./PasswordInput.jsx";
 import { useContext } from "react";
 import LocaleContext from "../contexts/LocaleContext.js";
 import { ClipLoader } from "react-spinners";
+import useInput from "../hooks/useInput.js";
 
-export function LoginForm({
-  email,
-  onChangeEmail,
-  password,
-  onChangePassword,
-  isLoading,
-  onLogin,
-}) {
+export function LoginForm({ isLoading, onLogin }) {
   const { locale } = useContext(LocaleContext);
+  const [email, onChangeEmail] = useInput("");
+  const [password, onChangePassword] = useInput("");
+
+  const onLoginClick = () => {
+    onLogin(email, password);
+  };
 
   return (
     <section className="auth-form">
@@ -22,7 +22,7 @@ export function LoginForm({
           ? "Silakan masuk untuk menggunakan Note App!"
           : "Please login to use Note App!"}
       </h1>
-      <form onSubmit={onLogin}>
+      <form onSubmit={onLoginClick}>
         <EmailInput email={email} onChangeEmail={onChangeEmail} />
         <PasswordInput
           password={password}
@@ -54,10 +54,6 @@ export function LoginForm({
 }
 
 LoginForm.propTypes = {
-  email: PropTypes.string.isRequired,
-  onChangeEmail: PropTypes.func.isRequired,
-  password: PropTypes.string.isRequired,
-  onChangePassword: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   onLogin: PropTypes.func.isRequired,
 };

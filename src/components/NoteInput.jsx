@@ -1,22 +1,13 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import PropTypes from "prop-types";
 import LocaleContext from "../contexts/LocaleContext.js";
 import { ClipLoader } from "react-spinners";
+import useInput from "../hooks/useInput.js";
 
 function NoteInput({ addNote, isLoading }) {
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [titleLimit, setTitleLimit] = useState(50);
   const { locale } = useContext(LocaleContext);
-
-  function onTitleChangeEventHandler(event) {
-    setTitle(event.target.value);
-    setTitleLimit(50 - event.target.value.length);
-  }
-
-  function onBodyChangeEventHandler(event) {
-    setBody(event.target.value);
-  }
+  const [title, onTitleChangeEventHandler] = useInput("");
+  const [body, onBodyChangeEventHandler] = useInput("");
 
   function onSubmitEventHandler(event) {
     event.preventDefault();
@@ -29,7 +20,7 @@ function NoteInput({ addNote, isLoading }) {
       <form onSubmit={onSubmitEventHandler}>
         <div className="input">
           <label htmlFor="input-note-title">
-            {locale === "id" ? "Judul (Batas" : "Title (Limit"}: {titleLimit})
+            {locale === "id" ? "Judul " : "Title"}
           </label>
           <input
             id="input-note-title"

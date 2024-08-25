@@ -16,7 +16,7 @@ function SearchBar({ keyword, keywordChange }) {
             : "Search note by title"
         }
         value={keyword}
-        onChange={(event) => keywordChange(event.target.value)}
+        onChange={keywordChange}
       />
     </div>
   );
