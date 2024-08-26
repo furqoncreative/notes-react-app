@@ -3,9 +3,9 @@ import { EmailInput } from "./EmailInput.jsx";
 import { PasswordInput } from "./PasswordInput.jsx";
 import { useContext } from "react";
 import LocaleContext from "../contexts/LocaleContext.js";
-import { ClipLoader } from "react-spinners";
 import useInput from "../hooks/useInput.js";
 import { Link } from "react-router-dom";
+import LoadingIndicator from "./LoadingIndicator.jsx";
 
 export function RegisterForm({ onRegister, isLoading }) {
   const { locale } = useContext(LocaleContext);
@@ -44,7 +44,7 @@ export function RegisterForm({ onRegister, isLoading }) {
           onChangePassword={onChangePassword}
         />
         {isLoading ? (
-          <ClipLoader loading={isLoading} size={20} />
+          <LoadingIndicator isLoading={isLoading} size={25} />
         ) : (
           <button type="submit">
             {locale === "id" ? "Daftar" : "Register"}

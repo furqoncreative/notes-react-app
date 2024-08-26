@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import PropTypes from "prop-types";
 import LocaleContext from "../contexts/LocaleContext.js";
-import { ClipLoader } from "react-spinners";
 import useInput from "../hooks/useInput.js";
+import LoadingIndicator from "./LoadingIndicator.jsx";
 
 function NoteInput({ addNote, isLoading }) {
   const { locale } = useContext(LocaleContext);
@@ -48,7 +48,7 @@ function NoteInput({ addNote, isLoading }) {
           />
         </div>
         {isLoading ? (
-          <ClipLoader loading={isLoading} size={20} />
+          <LoadingIndicator isLoading={isLoading} size={25} />
         ) : (
           <button id="noteSubmit" type="submit">
             {locale === "id" ? "Tambah Catatan" : "Add Note"}

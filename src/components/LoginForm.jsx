@@ -3,9 +3,9 @@ import { EmailInput } from "./EmailInput.jsx";
 import { PasswordInput } from "./PasswordInput.jsx";
 import { useContext } from "react";
 import LocaleContext from "../contexts/LocaleContext.js";
-import { ClipLoader } from "react-spinners";
 import useInput from "../hooks/useInput.js";
 import { Link } from "react-router-dom";
+import LoadingIndicator from "./LoadingIndicator.jsx";
 
 export function LoginForm({ isLoading, onLogin }) {
   const { locale } = useContext(LocaleContext);
@@ -31,12 +31,7 @@ export function LoginForm({ isLoading, onLogin }) {
           onChangePassword={onChangePassword}
         />
         {isLoading ? (
-          <ClipLoader
-            loading={isLoading}
-            size={20}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
+          <LoadingIndicator isLoading={isLoading} size={25} />
         ) : (
           <button type="submit">{locale === "id" ? "Masuk" : "Login"}</button>
         )}

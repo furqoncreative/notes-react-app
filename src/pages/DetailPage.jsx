@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import NotFound404Page from "./NotFound404Page.jsx";
 import { getNote } from "../utils/api.js";
 import { useContext, useEffect, useState } from "react";
-import { ClipLoader } from "react-spinners";
 import LocaleContext from "../contexts/LocaleContext.js";
+import LoadingIndicator from "../components/LoadingIndicator.jsx";
 
 function DetailPage() {
   const { locale } = useContext(LocaleContext);
@@ -29,7 +29,7 @@ function DetailPage() {
     const localeDate = locale === "id" ? "id-ID" : "en-US";
 
     if (isLoading) {
-      return <ClipLoader loading={isLoading} size={50} />;
+      return <LoadingIndicator isLoading={isLoading} size={35} />;
     }
 
     return (

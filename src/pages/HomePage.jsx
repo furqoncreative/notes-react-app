@@ -9,8 +9,8 @@ import {
   getNotes,
   unarchiveNote,
 } from "../utils/api.js";
-import { ClipLoader } from "react-spinners";
 import useSearch from "../hooks/useSearch.js";
+import LoadingIndicator from "../components/LoadingIndicator.jsx";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -70,7 +70,7 @@ function HomePage() {
     <section className="notes-section">
       <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler} />
       {isLoading ? (
-        <ClipLoader loading={isLoading} size={50} />
+        <LoadingIndicator isLoading={isLoading} size={35} />
       ) : (
         <NotesList
           notes={filteredNotes}
