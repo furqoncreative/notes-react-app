@@ -42,12 +42,7 @@ export function RegisterForm({ onRegister, isLoading }) {
           onChangePassword={onChangePassword}
         />
         {isLoading ? (
-          <ClipLoader
-            loading={isLoading}
-            size={20}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
+          <ClipLoader loading={isLoading} size={20} />
         ) : (
           <button type="submit">
             {locale === "id" ? "Daftar" : "Register"}

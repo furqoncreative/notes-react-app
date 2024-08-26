@@ -48,12 +48,7 @@ function NoteInput({ addNote, isLoading }) {
           />
         </div>
         {isLoading ? (
-          <ClipLoader
-            loading={isLoading}
-            size={20}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
+          <ClipLoader loading={isLoading} size={20} />
         ) : (
           <button id="noteSubmit" type="submit">
             {locale === "id" ? "Tambah Catatan" : "Add Note"}

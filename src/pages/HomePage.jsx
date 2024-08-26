@@ -70,12 +70,7 @@ function HomePage() {
     <section className="notes-section">
       <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler} />
       {isLoading ? (
-        <ClipLoader
-          loading={isLoading}
-          size={50}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
+        <ClipLoader loading={isLoading} size={50} />
       ) : (
         <NotesList
           notes={filteredNotes}
