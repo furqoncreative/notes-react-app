@@ -5,6 +5,7 @@ import { useContext } from "react";
 import LocaleContext from "../contexts/LocaleContext.js";
 import { ClipLoader } from "react-spinners";
 import useInput from "../hooks/useInput.js";
+import { Link } from "react-router-dom";
 
 export function RegisterForm({ onRegister, isLoading }) {
   const { locale } = useContext(LocaleContext);
@@ -12,7 +13,8 @@ export function RegisterForm({ onRegister, isLoading }) {
   const [password, onChangePassword] = useInput("");
   const [name, onChangeName] = useInput("");
 
-  function onRegisterClick() {
+  function onRegisterClick(event) {
+    event.preventDefault();
     onRegister(email, password, name);
   }
 
@@ -50,11 +52,11 @@ export function RegisterForm({ onRegister, isLoading }) {
         )}
         {locale === "id" ? (
           <p>
-            Sudah punya akun? <a href="/login">Masuk di sini </a>
+            Sudah punya akun? <Link to="/login">Masuk di sini </Link>
           </p>
         ) : (
           <p>
-            Already have an account? <a href="/login">Login here</a>
+            Already have an account? <Link to="/login">Login here </Link>
           </p>
         )}
       </form>

@@ -5,13 +5,15 @@ import { useContext } from "react";
 import LocaleContext from "../contexts/LocaleContext.js";
 import { ClipLoader } from "react-spinners";
 import useInput from "../hooks/useInput.js";
+import { Link } from "react-router-dom";
 
 export function LoginForm({ isLoading, onLogin }) {
   const { locale } = useContext(LocaleContext);
   const [email, onChangeEmail] = useInput("");
   const [password, onChangePassword] = useInput("");
 
-  const onLoginClick = () => {
+  const onLoginClick = (event) => {
+    event.preventDefault();
     onLogin(email, password);
   };
 
@@ -41,11 +43,12 @@ export function LoginForm({ isLoading, onLogin }) {
 
         {locale === "id" ? (
           <p>
-            Belum punya akun? <a href="/register">Daftar di sini </a>
+            Belum punya akun? <Link to="/register">Daftar di sini </Link>
           </p>
         ) : (
           <p>
-            Don&apos;t have an account? <a href="/register">Register here</a>
+            Don&apos;t have an account?{" "}
+            <Link to="/register">Register here</Link>
           </p>
         )}
       </form>
